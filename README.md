@@ -75,7 +75,7 @@ Siga o passo a passo abaixo para executar o projeto em sua máquina:
 ### 2. Passo a Passo
 ```bash
 # 1. Clone este repositório
-git clone [https://github.com/seu-usuario/seu-repositorio-jogo-da-velha.git](https://github.com/seu-usuario/seu-repositorio-jogo-da-velha.git)
+git clone (https://github.com/lorenagoncalves02/vite-project.git)
 
 # 2. Acesse a pasta do projeto
 cd seu-repositorio-jogo-da-velha
