@@ -1,47 +1,76 @@
 import { useState } from 'react';
+import { Scoreboard } from '../Scoreboard/Scoreboard';
 import { Board } from '../Board/Board';
+import { calculateWinner } from '../../utils/calculateWinner';
 import styles from './Game.module.css';
 
 export function Game() {
-  // 'history' guarda um array contendo todas as "fotos" (estados) do tabuleiro
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  // 'currentMove' guarda o índice da jogada que estamos visualizando
   const [currentMove, setCurrentMove] = useState(0);
+  const [scores, setScores] = useState({ x: 0, o: 0, ties: 0 });
 
-  // Calcula se é a vez do X com base no número do turno atual
   const xIsNext = currentMove % 2 === 0;
-  // Pega o estado do tabuleiro na jogada atual
   const currentSquares = history[currentMove];
 
-  // Atualiza o histórico ao realizar uma nova jogada[cite: 1, 2]
   function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    // Trava de segurança: impede novas jogadas se o usuário estiver navegando pelo passado
+    if (currentMove !== history.length - 1) {
+      return;
+    }
+
+    const nextHistory = [...history, nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+
+    // Atualização do placar acumulativo (RF08)
+    const winner = calculateWinner(nextSquares);
+    const isDraw = !winner && nextSquares.every((sq) => sq !== null);
+
+    if (winner === 'X') {
+      setScores((prev) => ({ ...prev, x: prev.x + 1 }));
+    } else if (winner === 'O') {
+      setScores((prev) => ({ ...prev, o: prev.o + 1 }));
+    } else if (isDraw) {
+      setScores((prev) => ({ ...prev, ties: prev.ties + 1 }));
+    }
   }
 
-  // Altera o turno atual para "viajar no tempo"[cite: 1, 2]
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
+  }
+
+  function handleResetGame() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
   }
 
   return (
     <div className={`container py-4 ${styles['game']}`}>
       <h1 className="text-center mb-4">Jogo da Velha</h1>
+
+      <Scoreboard xWins={scores.x} oWins={scores.o} ties={scores.ties} />
+
       <div className={styles['game__content']}>
         <div className={styles['game__board']}>
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
         </div>
+
         <div className={styles['game__info']}>
-          <h3>Histórico de Jogadas</h3>
+          <button
+            className="btn btn-primary mb-3 w-100 fw-bold"
+            onClick={handleResetGame}
+          >
+            Jogar Novamente
+          </button>
+          <h3>Histórico (Revisão)</h3>
           <ol className="list-group list-group-numbered">
             {history.map((_, move) => (
               <li key={move} className="list-group-item d-flex justify-content-between align-items-center">
-                <button 
-                  className="btn btn-sm btn-outline-secondary" 
+                <button
+                  className="btn btn-sm btn-outline-secondary"
                   onClick={() => jumpTo(move)}
                 >
-                  {move > 0 ? `Ir para a jogada #${move}` : 'Ir para o início do jogo'}
+                  {move > 0 ? `Ver jogada #${move}` : 'Ver início do jogo'}
                 </button>
               </li>
             ))}
