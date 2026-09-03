@@ -1,0 +1,26 @@
+/* src/styles/global.css */
+
+/* Importação do Bootstrap diretamente na raiz de estilos do projeto */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Declaração das variáveis CSS globais (Design System) para garantir reusabilidade */
+:root {
+  /* Cores principais para identificação visual dos jogadores X e O */
+  --primary-color: #0d6efd;   /* Azul padrão do tema */
+  --secondary-color: #dc3545; /* Vermelho padrão do tema */
+  --bg-color: #f8f9fa;        /* Cor do fundo da aplicação */
+  --board-bg: #ffffff;        /* Cor do fundo do tabuleiro */
+  
+  /* Fontes e transições suaves */
+  --main-font: system-ui, -apple-system, sans-serif;
+  --transition-speed: 0.2s ease-in-out;
+}
+
+/* Reset de estilos básicos do corpo da aplicação */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  font-family: var(--main-font);
+  min-height: 100vh;
+}

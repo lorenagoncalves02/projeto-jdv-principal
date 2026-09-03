@@ -1,0 +1,16 @@
+.square {
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Modificador acionado quando o quadrado já possui uma marcação */
+.square--occupied {
+  cursor: not-allowed;
+}
+
