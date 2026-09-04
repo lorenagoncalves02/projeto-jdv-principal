@@ -10,7 +10,7 @@ export function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [scores, setScores] = useState({ x: 0, o: 0, ties: 0 });
-  const [gameMode, setGameMode] = useState('pvp'); // Estado do modo ativo
+  const [gameMode, setGameMode] = useState('pvp'); 
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
@@ -34,7 +34,6 @@ export function Game() {
     }
   }
 
-  // Hook responsável por automação das jogadas da CPU
   useEffect(() => {
     if (!xIsNext && gameMode !== 'pvp') {
       const winner = calculateWinner(currentSquares);

@@ -1,0 +1,39 @@
+
+.scoreboard {
+max-width: 500px;
+  margin: 0 auto;
+}
+
+.scoreboard__card {
+  background-color: var(--bg-card-blue);
+  border: 1px solid var(--text-secondary);
+  border-radius: 8px;
+  color: var(--text-light);
+  transition: transform 0.2s ease-in-out;
+}
+
+.scoreboard__card:hover {
+  transform: translateY(-2px);
+}
+
+.scoreboard__label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scoreboard__value {
+  color: var(--accent-cyan);
+}
+
+.scoreboard__card--x {
+  border-bottom: 4px solid var(--accent-cyan);
+}
+
+.scoreboard__card--o {
+  border-bottom: 4px solid var(--accent-blue);
+}
+
+.scoreboard__card--ties {
+  border-bottom: 4px solid var(--text-secondary);
+}

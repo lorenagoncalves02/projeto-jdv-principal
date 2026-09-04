@@ -1,25 +1,36 @@
-// src/components/Scoreboard/Scoreboard.jsx
 import styles from './Scoreboard.module.css';
 
-// O componente recebe os contadores diretamente do pai (Game) via props
 export function Scoreboard({ xWins, oWins, ties }) {
   return (
-    <div className={`card text-center shadow-sm mb-4 ${styles['scoreboard']}`}>
-      <div className="card-header bg-primary text-white fw-bold">
-        Placar Geral
+    <div className={`row g-2 mb-4 mx-auto justify-content-center ${styles['scoreboard']}`}>
+
+      <div className="col-4">
+
+        <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--x']}`}>
+          <div className="card-body p-2">
+            <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Jogador X</span>
+            <span className={`fs-4 fw-bolder ${styles['scoreboard__value']}`}>{xWins}</span>
+          </div>
+        </div>
       </div>
-      <div className="card-body d-flex justify-content-around py-2">
-        <div className={styles['scoreboard__item']}>
-          <span className="fw-bold text-primary">Jogador X</span>
-          <h4 className="mb-0">{xWins}</h4>
+
+      <div className="col-4">
+
+        <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--ties']}`}>
+          <div className="card-body p-2">
+            <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Empates</span>
+            <span className={`fs-4 fw-bolder ${styles['scoreboard__value']}`}>{ties}</span>
+          </div>
         </div>
-        <div className={styles['scoreboard__item']}>
-          <span className="fw-bold text-secondary">Empates</span>
-          <h4 className="mb-0">{ties}</h4>
-        </div>
-        <div className={styles['scoreboard__item']}>
-          <span className="fw-bold text-danger">Jogador O</span>
-          <h4 className="mb-0">{oWins}</h4>
+      </div>
+
+      <div className="col-4">
+
+        <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--o']}`}>
+          <div className="card-body p-2">
+            <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Jogador O</span>
+            <span className={`fs-4 fw-bolder ${styles['scoreboard__value']}`}>{oWins}</span>
+          </div>
         </div>
       </div>
     </div>
