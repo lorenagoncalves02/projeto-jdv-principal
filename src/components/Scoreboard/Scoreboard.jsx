@@ -5,7 +5,6 @@ export function Scoreboard({ xWins, oWins, ties }) {
     <div className={`row g-2 mb-4 mx-auto justify-content-center ${styles['scoreboard']}`}>
 
       <div className="col-4">
-
         <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--x']}`}>
           <div className="card-body p-2">
             <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Jogador X</span>
@@ -15,7 +14,6 @@ export function Scoreboard({ xWins, oWins, ties }) {
       </div>
 
       <div className="col-4">
-
         <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--ties']}`}>
           <div className="card-body p-2">
             <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Empates</span>
@@ -25,7 +23,6 @@ export function Scoreboard({ xWins, oWins, ties }) {
       </div>
 
       <div className="col-4">
-
         <div className={`card text-center ${styles['scoreboard__card']} ${styles['scoreboard__card--o']}`}>
           <div className="card-body p-2">
             <span className={`d-block fw-bold ${styles['scoreboard__label']}`}>Jogador O</span>
@@ -33,6 +30,7 @@ export function Scoreboard({ xWins, oWins, ties }) {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

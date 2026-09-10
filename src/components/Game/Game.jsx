@@ -1,4 +1,3 @@
-// src/components/Game/Game.jsx
 import { useState, useEffect } from 'react';
 import { Board } from '../Board/Board';
 import { Scoreboard } from '../Scoreboard/Scoreboard';
@@ -7,13 +6,19 @@ import { getEasyCpuMove, getHardCpuMove, getMediumCpuMove } from '../../utils/cp
 import styles from './Game.module.css';
 
 export function Game() {
+
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [scores, setScores] = useState({ x: 0, o: 0, ties: 0 });
-  const [gameMode, setGameMode] = useState('pvp'); 
+  const [gameMode, setGameMode] = useState('pvp');
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+
+  function handleResetGame() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+  }
 
   function handlePlay(nextSquares) {
     if (currentMove !== history.length - 1) return;
@@ -25,12 +30,23 @@ export function Game() {
     const winner = calculateWinner(nextSquares);
     const isDraw = !winner && nextSquares.every((sq) => sq !== null);
 
+    // Calcula os novos pontos de forma imutável
+    let updatedScores = { ...scores };
     if (winner === 'X') {
-      setScores((prev) => ({ ...prev, x: prev.x + 1 }));
+      updatedScores.x += 1;
     } else if (winner === 'O') {
-      setScores((prev) => ({ ...prev, o: prev.o + 1 }));
+      updatedScores.o += 1;
     } else if (isDraw) {
-      setScores((prev) => ({ ...prev, ties: prev.ties + 1 }));
+      updatedScores.ties += 1;
+    }
+
+    // Validação do Requisito de Campeonato (Limite de 10 pontos)
+    if (updatedScores.x >= 10 || updatedScores.o >= 10 || updatedScores.ties >= 10) {
+      alert('Fim de jogo! A pontuação máxima de 10 foi atingida. O placar geral será zerado.');
+      setScores({ x: 0, o: 0, ties: 0 });
+      handleResetGame();
+    } else {
+      setScores(updatedScores);
     }
   }
 
@@ -38,7 +54,6 @@ export function Game() {
     if (!xIsNext && gameMode !== 'pvp') {
       const winner = calculateWinner(currentSquares);
       const isDraw = currentSquares.every((sq) => sq !== null);
-
       if (winner || isDraw) return;
 
       let moveIndex;
@@ -53,11 +68,9 @@ export function Game() {
       if (moveIndex !== null && moveIndex !== undefined) {
         const nextSquares = currentSquares.slice();
         nextSquares[moveIndex] = 'O';
-
         const timer = setTimeout(() => {
           handlePlay(nextSquares);
         }, 500);
-
         return () => clearTimeout(timer);
       }
     }
@@ -67,17 +80,12 @@ export function Game() {
     setCurrentMove(nextMove);
   }
 
-  function handleResetGame() {
-    setHistory([Array(9).fill(null)]);
-    setCurrentMove(0);
-  }
-
   return (
     <div className={`container py-4 ${styles['game']}`}>
       <h1 className="text-center mb-4">Jogo da Velha</h1>
+
       <Scoreboard xWins={scores.x} oWins={scores.o} ties={scores.ties} />
 
-      {/* Interface de Botões de Alternância (Bootstrap) */}
       <div className="mb-4 w-100 mx-auto" style={{ maxWidth: '500px' }}>
         <label className="form-label fw-bold text-light d-block text-center mb-2">
           Modo de Jogo:

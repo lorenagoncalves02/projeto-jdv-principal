@@ -9,7 +9,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Modificador acionado quando o quadrado já possui uma marcação */
 .square--occupied {
   cursor: not-allowed;
 }

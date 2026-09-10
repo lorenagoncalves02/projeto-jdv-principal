@@ -1,7 +1,5 @@
-// src/components/Square/Square.jsx
 import styles from './Square.module.css';
 
-// O componente recebe 'value' (marcação) e 'onSquareClick' (função de clique) via props
 export function Square({ value, onSquareClick }) {
   return (
     <button 

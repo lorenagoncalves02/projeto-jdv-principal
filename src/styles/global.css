@@ -1,0 +1,16 @@
+:root {
+  --bg-dark-blue: #0f172a;
+  --btn-hover-blue: #1e293b;
+  --text-secondary: #94a3b8;
+  --accent-cyan: #06b6d4;
+  --accent-blue: #3b82f6;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark-blue);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+}
